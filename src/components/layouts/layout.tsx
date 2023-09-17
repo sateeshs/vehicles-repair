@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import Header from './header'
+import Header from '../header'
 import { useSession } from 'next-auth/react'
 import { NextPage } from 'next'
-import NavBar from './navbar'
+import NavBar from '../navbar'
 import React from 'react'
 
 type LayoutProps = {
@@ -21,7 +21,7 @@ const Layout: NextPage<LayoutProps> = ({children}) => {
 
   }
 return(<div>
-  <NavBar blurCallback={setBlur}  />
+  {/* <NavBar blurCallback={setBlur}  /> */}
   <div>
       {
           React.cloneElement(children, { session: session, setBlur: setBlur})

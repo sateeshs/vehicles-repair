@@ -1,14 +1,14 @@
-import Layout from '@/components/layout'
+import Layout from '@/components/layouts/layout'
 import { headers } from 'next/headers'
+// These styles apply to every route in the application
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { SessionProvider } from 'next-auth/react'
 import AuthContext from './AuthContext'
 import { Session, getServerSession } from 'next-auth'
-import { authOptions } from './pages/auth/api/auth/[...nextauth]/route'
+import { authOptions } from './api/auth/[...nextauth]/route'
 import NavBar from '@/components/navbar'
-import ClientLanding from '@/components/landing/client-dashboard'
 import { Suspense } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -43,21 +43,18 @@ export default async function RootLayout({
   }
   return (
     <html lang="en">
-    {/* <SessionProvider session={session}>
-      <body className={inter.className}>{
-      <Layout>children</Layout>
-      }</body>
-      </SessionProvider> */}
-          <body className={inter.className}>
-            <div className="min-h-full">
+   
+          <body className={`${inter.className} min-h-full`}>
+            {/* <div className="min-h-full"> */}
             <Suspense>
           <NavBar   />
-          <ClientLanding >{children}</ClientLanding>
+          {/* <ClientLanding >{children}</ClientLanding> */}
               {/* <AuthContext session={session!}> */}
           
         {/* </AuthContext> */}
+        {children}
             </Suspense>
-            </div>
+            {/* </div> */}
 
         
       </body>
