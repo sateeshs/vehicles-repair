@@ -10,6 +10,8 @@ import { Session, getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]/route'
 import NavBar from '@/components/navbar'
 import { Suspense } from 'react'
+import { ThemeProvider } from 'next-themes';
+import NextThemeProvider from './next-theme-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -43,8 +45,10 @@ export default async function RootLayout({
   }
   return (
     <html lang="en">
-   
+
           <body className={`${inter.className} min-h-full`}>
+       <NextThemeProvider>
+
             {/* <div className="min-h-full"> */}
             <Suspense>
           <NavBar   />
@@ -55,6 +59,7 @@ export default async function RootLayout({
         {children}
             </Suspense>
             {/* </div> */}
+            </NextThemeProvider>
 
         
       </body>
