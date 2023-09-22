@@ -1,8 +1,9 @@
 "use client";
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-
+import { Fragment, useState } from 'react';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import logo from "../../public/logo-ryder.svg";
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 // const NavBar = ({ blurCallback}: any) => {
 //     return(<></>)
 //     }
@@ -21,16 +22,16 @@ const user = {
   
     { name: 'Dashboard', href: '/', current: true },
     { name: 'Orders', href: '/order', current: false },
-    { name: 'Projects', href: '#', current: false },
+    { name: 'Tasks', href: '#', current: false },
     { name: 'Calendar', href: '#', current: false },
-  ]
+  ];
   const userNavigation = [
   
   
     { name: 'Your Profile', href: '#' },
     { name: 'Settings', href: '#' },
     { name: 'Sign out', href: '#' },
-  ]
+  ];
 
 
 function classNames(...classes: any) {
@@ -40,6 +41,23 @@ function classNames(...classes: any) {
 
     }
     const NavBar = () => {
+      const [navState, setNaveState] = useState(navigation);
+      const router = useRouter();
+      const pathname = usePathname()
+      const searchParams = useSearchParams()
+      console.log(searchParams.values)
+      console.log(pathname);
+      const handleNavClick = (e: any, item: any) => {
+        e.preventDefault();
+        const navigation = navState.map(x => {x.current = false; return x;});
+        const foundItem: any = navigation.findIndex(x => x.name  == item.name);
+        console.log(foundItem)
+
+        navigation[foundItem].current = true;
+        console.log(foundItem)
+        setNaveState(navigation);
+        router.push(item.href)
+      }
         return(
 
         <Disclosure
@@ -52,20 +70,21 @@ function classNames(...classes: any) {
                   <div className="flex flex-shrink-0 items-center">
                     <img
                       className="block h-8 w-auto lg:hidden"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                      alt="Your Company"
+                      src="./logo-ryder.svg"
+                      alt="Ryder Truck"
                     />
                     <img
                       className="hidden h-8 w-auto lg:block"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                      alt="Your Company"
+                      src="./logo-ryder.svg"
+                      alt="Ryder Truck"
                     />
                   </div>
                   <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-                    {navigation.map((item) => (
+                    {navState.map((item) => (
                       <a
                         key={item.name}
-                        href={item.href}
+                        href="#"
+                        onClick={(e) => handleNavClick(e, item)}
                         className={classNames(
                           item.current
                             ? 'border-indigo-500 text-gray-900'

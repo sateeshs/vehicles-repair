@@ -47,7 +47,6 @@ export default async function RootLayout({
     <html lang="en">
 
           <body className={`${inter.className} min-h-full`}>
-       <NextThemeProvider>
 
             {/* <div className="min-h-full"> */}
             <Suspense>
@@ -59,7 +58,6 @@ export default async function RootLayout({
         {children}
             </Suspense>
             {/* </div> */}
-            </NextThemeProvider>
 
         
       </body>
