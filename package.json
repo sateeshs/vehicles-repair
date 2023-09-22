@@ -28,6 +28,8 @@
     "next-themes": "^0.2.1",
     "postcss": "8.4.29",
     "react": "^18.2.0",
+    "react-chat-widget": "^3.1.4",
+    "react-chat-window": "^1.2.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.46.1",
     "react-icons": "^4.11.0",
