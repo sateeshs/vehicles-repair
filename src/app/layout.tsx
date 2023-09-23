@@ -1,5 +1,3 @@
-import Layout from '@/components/layouts/layout'
-import { headers } from 'next/headers'
 // These styles apply to every route in the application
 import './globals.css'
 import type { Metadata } from 'next'
@@ -12,6 +10,7 @@ import NavBar from '@/components/navbar'
 import { Suspense } from 'react'
 import { ThemeProvider } from 'next-themes';
 import NextThemeProvider from './next-theme-provider'
+import { AppContextProvider } from '@/context/app'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -49,16 +48,17 @@ export default async function RootLayout({
           <body className={`${inter.className} min-h-full`}>
 
             {/* <div className="min-h-full"> */}
-            <Suspense>
+            
           <NavBar   />
           {/* <ClientLanding >{children}</ClientLanding> */}
               {/* <AuthContext session={session!}> */}
-          
+              <AppContextProvider>
+                <Suspense>
         {/* </AuthContext> */}
         {children}
             </Suspense>
             {/* </div> */}
-
+            </AppContextProvider>
         
       </body>
     </html>

@@ -1,3 +1,4 @@
+'use client'
 import { useSession } from "next-auth/react";
 import { ReactNode, useEffect, useState } from "react"
 import AppContext from "./app-context";
@@ -8,11 +9,11 @@ type Props = {
 }
 
 const AppContextProvider = ({children}: Props) => {
-const {data: session, status } = useSession({required: false});
+//const {data: session, status } = useSession({required: false});
 const [companyName, setCompanyName] = useState<any>('en');
 
 const [locale, setLocale] = useState<any>('en');
-const [domain, setDomain] = useState<any>('onyhs');
+const [domain, setDomain] = useState<any>('ryder');
 const [user, setUser] = useState<User | undefined>();
 const [tickets, setTickets] = useState<[] | undefined>(undefined);
 

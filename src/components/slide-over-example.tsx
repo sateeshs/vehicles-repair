@@ -13,7 +13,7 @@
   ```
 */
 'use client'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { LinkIcon, PlusIcon, QuestionMarkCircleIcon } from '@heroicons/react/20/solid'
@@ -57,18 +57,10 @@ const team = [
       'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
 ]
-interface SlideOverProps {
-//setSlideOver: any;
-isSlideOver: boolean
-}
-const  SlideOver = ({isSlideOver}:SlideOverProps) => {
-  const [open, setOpen] = useState(isSlideOver)
 
-  // useEffect(() =>{
-  //   if(!open) {
-  //   setSlideOver(open);
-  // }
-  // },[open])
+const  SlideOverExample = () => {
+  const [open, setOpen] = useState(true)
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -281,4 +273,4 @@ const  SlideOver = ({isSlideOver}:SlideOverProps) => {
     </Transition.Root>
   )
 }
-export default SlideOver;
+export default SlideOverExample;

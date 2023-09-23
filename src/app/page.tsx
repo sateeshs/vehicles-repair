@@ -1,11 +1,19 @@
-import ChatButton from "@/components/chat-wrapper/chat-button";
-import ChatWrapper from "@/components/chat-wrapper/chat-wrapper-test";
+'use client'
+// import ChatButton from "@/components/chat-wrapper/chat-button";
+// import ChatWrapper from "@/components/chat-wrapper/chat-wrapper-test";
 //import ChatWrapper from "@/components/chat-wrapper/chat-wrapper";
 import { Meta } from "@/components/layouts/meta";
+import SlideOver from "@/components/slide-over";
 import { Main } from "@/components/templates/main";
 import { BaseNextPage } from "@/types/base-next-page";
+import { useState } from "react";
 
 const HomePage: BaseNextPage<{}> = () => {
+  const [openSlideOver, setOpenSlideOver] = useState(false);
+  const handleAddOrder = (e: any) => {
+  e.preventDefault();
+  setOpenSlideOver(!openSlideOver);
+  }
     const people = [
         {
           name: 'Lindsay Walton',
@@ -24,7 +32,7 @@ const HomePage: BaseNextPage<{}> = () => {
             image:
               'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
           },]
-    return(   <Main meta={<Meta title="Lorem ipsum" description="Lorem ipsum" />}>
+    return(<Main meta={<Meta title="Lorem ipsum" description="Lorem ipsum" />}>
         
         <div className="px-4 sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-center">
@@ -36,6 +44,7 @@ const HomePage: BaseNextPage<{}> = () => {
           </div>
           <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
             <button
+            onClick={(e) => handleAddOrder(e)}
               type="button"
               className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
@@ -103,6 +112,9 @@ const HomePage: BaseNextPage<{}> = () => {
           </div>
         </div>
       </div>
+      {openSlideOver &&
+      <SlideOver isSlideOver ={openSlideOver}/>
+}
         {/* <ChatButton></ChatButton> */}
         {/* <ChatWrapper></ChatWrapper> */}
     </Main>)

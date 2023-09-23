@@ -106,7 +106,8 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [    require('@tailwindcss/forms'),
+],
   // future: {
   //   hoverOnlyWhenSupported: true,
   // },
