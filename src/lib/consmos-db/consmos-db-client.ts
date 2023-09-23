@@ -2,8 +2,8 @@
 import { CosmosClient, PartitionKeyDefinitionVersion, PartitionKeyKind} from "@azure/cosmos";
 //https://github.com/Azure/azure-sdk-for-js/blob/main/sdk/cosmosdb/cosmos/README.md
 
-const endpoint = "https://your-account.documents.azure.com";
-const key = "<database account masterkey>";
+const endpoint = "https://az-cosmosdb-hack-bountyhackers.documents.azure.com:443/";
+const key = "QjQauVYMWSDBW1YIg1BGc9iGcA5Cx0MDVBwdh39rtvU4cylY2GFpbE2xho4rpmFVrABWkxAKqjlhACDbqSMB6g==";
 const client = new CosmosClient({ endpoint, key });
 
 const database = async (dbId: string) =>  client.databases.createIfNotExists({ id: dbId});
@@ -24,7 +24,7 @@ const  getContainer = async (containerId: string) => {
 
 const  getItem = async (key: string) => {
 
-    const  container  = await getContainer("vehicle");
+    const  container  = await getContainer("ordes");
    // container.container.items.query
    /**
     * const { resources } = await container.items

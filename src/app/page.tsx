@@ -5,14 +5,35 @@
 import { Meta } from "@/components/layouts/meta";
 import SlideOver from "@/components/slide-over";
 import { Main } from "@/components/templates/main";
+import { Order } from "@/interfaces/order";
 import { BaseNextPage } from "@/types/base-next-page";
-import { useState } from "react";
+import { redirect, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const HomePage: BaseNextPage<{}> = () => {
   const [openSlideOver, setOpenSlideOver] = useState(false);
+  const [ordersData, setOrdersData] = useState<Order[]>();
+  const router = useRouter();
+
   const handleAddOrder = (e: any) => {
   e.preventDefault();
   setOpenSlideOver(!openSlideOver);
+  }
+
+  const handleOrderDetails = (e: any, orderId: string) => {
+    e.preventDefault();
+
+    //router.push(`/order?q=${orderId}`);
+    redirect(`/order?q=${orderId}`)
+  }
+
+  useEffect(() => {
+    getOrders().catch(console.error);
+  },[])
+  const getOrders = async () => {
+    const resp = await fetch("/api/orders");
+    const data = await resp.json();
+    setOrdersData(data);
   }
     const people = [
         {
@@ -39,10 +60,10 @@ const HomePage: BaseNextPage<{}> = () => {
           <div className="sm:flex-auto">
             <h1 className="text-base font-semibold leading-6 text-gray-900">Orders</h1>
             <p className="mt-2 text-sm text-gray-700">
-              A list of all the users in your account including their name, title, email and role.
+              A list of orders for login user.
             </p>
           </div>
-          <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+          {/* <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
             <button
             onClick={(e) => handleAddOrder(e)}
               type="button"
@@ -50,7 +71,7 @@ const HomePage: BaseNextPage<{}> = () => {
             >
               Add order
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="mt-8 flow-root">
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -58,52 +79,54 @@ const HomePage: BaseNextPage<{}> = () => {
               <table className="min-w-full divide-y divide-gray-300">
                 <thead>
                   <tr>
+                
                     <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
-                      Name
+                      Order
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Title
+                      VIN
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       Status
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Role
+                      Progress
                     </th>
-                    <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                    {/* <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                       <span className="sr-only">Edit</span>
-                    </th>
+                    </th> */}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {people.map((person) => (
-                    <tr key={person.email}>
+                  {ordersData?.map((order: Order) => (
+                    <tr key={order.key} onClick={(e) => handleOrderDetails(e, order.key)}>
                       <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                         <div className="flex items-center">
                           <div className="h-11 w-11 flex-shrink-0">
-                            <img className="h-11 w-11 rounded-full" src={person.image} alt="" />
+                            <img className="h-11 w-11 rounded-full"  alt="" />
                           </div>
                           <div className="ml-4">
-                            <div className="font-medium text-gray-900">{person.name}</div>
-                            <div className="mt-1 text-gray-500">{person.email}</div>
+                            <div className="font-medium text-gray-900">{order.key}</div>
+                            <div className="mt-1 text-gray-500">{order.status}</div>
                           </div>
                         </div>
                       </td>
                       <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                        <div className="text-gray-900">{person.title}</div>
-                        <div className="mt-1 text-gray-500">{person.department}</div>
+                        <div className="text-gray-900">{order.vin}</div>
+                        <div className="mt-1 text-gray-500">{order.description}</div>
                       </td>
                       <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                         <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                          Active
+                          {order.status}
                         </span>
                       </td>
-                      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">{person.role}</td>
-                      <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                        <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                          Edit<span className="sr-only">, {person.name}</span>
-                        </a>
-                      </td>
+                      {/* <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">{order.role}</td> */}
+                     
+                      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
+                          <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                            Click<span className="sr-only"></span>
+                          </a>
+                        </td>
                     </tr>
                   ))}
                 </tbody>

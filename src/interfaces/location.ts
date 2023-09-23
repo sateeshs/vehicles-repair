@@ -1,0 +1,21 @@
+export type Location = {
+    key: string,
+    CostCenterNumber: number,
+   CostCenterCode: number,
+   CostCenterRefId: string,
+   CostCenterName: string,
+   CostCenterEffectiveDate: string,
+   CorporateCode: number,
+   CompanyCode: number,
+   BusinessUnitCode: number,
+   BusinessUnitName: string,
+   DistrictCode: number,
+   DistrictName: string,
+   RegionCode: number,
+   RegionName: string,
+   AreaCode: number,
+   AreaName: string,
+   SegmentCode: string,
+   FmsRegionCode: string,
+   FmsRegionDesc: string
+}

@@ -2,7 +2,7 @@ import Header from "../header";
 import ChatHeader from "./header";
 import TextArea from "./text-area";
 //import * as chatWindow from "react-chat-window";
-const chatWindow = require("react-chat-window")
+//const chatWindow = require("react-chat-window")
 
 interface ChatProps {
 
@@ -50,7 +50,7 @@ const ChatWrapper = ({}:ChatProps) => {
 
       
     return( <div>
-        <ChatHeader />
+        {/* <ChatHeader />
         <TextArea
           onMessage={_sendMessage.bind(this)}
         />
@@ -67,7 +67,7 @@ const ChatWrapper = ({}:ChatProps) => {
           isOpen={state.isOpen}
           showEmoji
         />
-        <img className="demo-monster-img" src={monsterImgUrl} />
+        <img className="demo-monster-img" src={monsterImgUrl} /> */}
         {/* <Footer /> */}
       </div>)
 }
